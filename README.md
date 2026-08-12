@@ -1,6 +1,6 @@
 # formulario-pok-mon
 Formulário de cadastro de treinador Pokémon desenvolvido em HTML<hr>
-GET vs. POST<hr>
+<b>GET vs. POST</b><br>
 No método POST, os dados aparecem no corpo da requisição e não ficam visíveis diretamente na URL. Já no método GET, os dados são adicionados à URL depois do ?. Para este formulário, o método POST faz mais sentido, pois é mais adequado para enviar uma quantidade maior de informações e arquivos.
 
 codificação<hr>
