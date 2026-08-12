@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pokémon Trainer</title>
+
+    <style>
+
+        /* ==========================
+           CONFIGURAÇÕES GERAIS
+        ========================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #060709,
+                    #1e3a8a 45%,
+                    #2563eb
+                );
+
+            color: #263238;
+
+            min-height: 100vh;
+
+            padding: 30px 15px;
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 1050px;
+
+            margin: auto;
+        }
+
+
+        /* ==========================
+           CABEÇALHO
+        ========================== */
+
+        header {
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f1f5ff
+                );
+
+            border-radius: 25px 25px 0 0;
+
+            padding: 40px 25px;
+
+            text-align: center;
+
+            border-bottom: 7px solid #ffcb05;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.25);
+        }
+
+
+        header::before {
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            border-radius: 50%;
+
+            background: rgba(255,203,5,.20);
+
+            top: -120px;
+            left: -80px;
+        }
+
+
+        header::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(229,57,53,.12);
+
+            right: -70px;
+            bottom: -90px;
+        }
+
+
+        .logo {
+            position: relative;
+
+            width: 95px;
+            height: 95px;
+
+            margin: auto;
+            margin-bottom: 18px;
+
+            border-radius: 50%;
+
+            border: 7px solid #263238;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    #e3350d 0%,
+                    #e3350d 45%,
+                    #263238 45%,
+                    #263238 55%,
+                    white 55%,
+                    white 100%
+                );
+
+            box-shadow:
+                0 8px 20px rgba(0,0,0,.25);
+        }
+
+
+        .logo::after {
+            content: "";
+
+            position: absolute;
+
+            width: 30px;
+            height: 30px;
+
+            background: white;
+
+            border: 6px solid #263238;
+
+            border-radius: 50%;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+        }
+
+
+        header h1 {
+            position: relative;
+
+            font-size: 38px;
+
+            margin-bottom: 10px;
+
+            color: #263238;
+        }
+
+
+        header h1 span {
+            color: #e3350d;
+        }
+
+
+        header p {
+            position: relative;
+
+            color: #64748b;
+
+            max-width: 650px;
+
+            margin: auto;
+
+            line-height: 1.6;
+
+            font-size: 16px;
+        }
+
+
+        /* ==========================
+           PEQUENAS TAGS
+        ========================== */
+
+        .tags {
+            position: relative;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        .tag {
+            padding: 7px 15px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            background: #eef2ff;
+
+            color: #1e40af;
+
+            border: 1px solid #c7d2fe;
+        }
+
+
+        .tag.red {
+            background: #fff1f2;
+
+            color: #be123c;
+
+            border-color: #fecdd3;
+        }
+
+
+        .tag.yellow {
+            background: #fffbea;
+
+            color: #9a6700;
+
+            border-color: #fde68a;
+        }
+
+
+        /* ==========================
+           FORMULÁRIO
+        ========================== */
+
+        form {
+            background: #f1f5f9;
+
+            padding: 28px;
+
+            border-radius: 0 0 25px 25px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.25);
+        }
+
+
+        /* ==========================
+           SEÇÕES
+        ========================== */
+
+        fieldset {
+            position: relative;
+
+            border: none;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            margin-bottom: 22px;
+
+            box-shadow:
+                0 5px 20px rgba(15,23,42,.08);
+
+            overflow: hidden;
+        }
+
+
+        fieldset::before {
+            content: "";
+
+            position: absolute;
+
+            width: 5px;
+
+            height: 100%;
+
+            left: 0;
+            top: 0;
+
+            background: #e3350d;
+        }
+
+
+        legend {
+            padding: 9px 17px;
+
+            border-radius: 20px;
+
+            background: #263238;
+
+            color: white;
+
+            font-weight: bold;
+
+            font-size: 15px;
+        }
+
+
+        /* ==========================
+           GRID
+        ========================== */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-top: 12px;
+        }
+
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+
+        /* ==========================
+           CAMPOS
+        ========================== */
+
+        .campo {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+
+        .campo label {
+            font-size: 14px;
+
+            font-weight: bold;
+
+            color: #374151;
+        }
+
+
+        .obrigatorio {
+            color: #e3350d;
+        }
+
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border-radius: 9px;
+
+            border: 2px solid #e2e8f0;
+
+            background: #f8fafc;
+
+            font-size: 14px;
+
+            color: #263238;
+
+            transition: .2s;
+        }
+
+
+        input:hover,
+        select:hover,
+        textarea:hover {
+            border-color: #94a3b8;
+        }
+
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+
+            background: white;
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,.12);
+        }
+
+
+        textarea {
+            min-height: 130px;
+
+            resize: vertical;
+
+            line-height: 1.5;
+        }
+
+
+        .ajuda {
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+
+        /* ==========================
+           OPÇÕES
+        ========================== */
+
+        .opcoes {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(150px, 1fr));
+
+            gap: 10px;
+        }
+
+
+        .opcao {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            border: 2px solid #e5e7eb;
+
+            background: #fafafa;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .opcao:hover {
+            border-color: #2563eb;
+
+            background: #eff6ff;
+        }
+
+
+        .opcao input {
+            width: auto;
+
+            accent-color: #2563eb;
+        }
+
+
+        /* ==========================
+           CARDS DOS POKÉMON
+        ========================== */
+
+        .pokemon-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 14px;
+
+            margin-top: 15px;
+        }
+
+
+        .pokemon {
+            position: relative;
+
+            border-radius: 14px;
+
+            border: 2px solid #e2e8f0;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #f8fafc,
+                    #ffffff
+                );
+
+            text-align: center;
+
+            padding: 12px;
+
+            transition: .2s;
+        }
+
+
+        .pokemon:hover {
+            transform: translateY(-4px);
+
+            border-color: #ffcb05;
+
+            box-shadow:
+                0 8px 18px rgba(0,0,0,.12);
+        }
+
+
+        .pokemon img {
+            width: 105px;
+            height: 105px;
+
+            object-fit: contain;
+        }
+
+
+        .pokemon label {
+            display: block;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .pokemon input {
+            width: auto;
+
+            margin-right: 5px;
+
+            accent-color: #e3350d;
+        }
+
+
+        /* ==========================
+           EXPERIÊNCIA
+        ========================== */
+
+        input[type="range"] {
+            padding: 0;
+
+            accent-color: #e3350d;
+
+            cursor: pointer;
+        }
+
+
+        .range {
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+
+        /* ==========================
+           COR
+        ========================== */
+
+        input[type="color"] {
+            height: 48px;
+
+            padding: 4px;
+
+            cursor: pointer;
+        }
+
+
+        /* ==========================
+           ARQUIVO
+        ========================== */
+
+        input[type="file"] {
+            padding: 9px;
+
+            background: white;
+        }
+
+
+        /* ==========================
+           FIELDSET INTERNO
+        ========================== */
+
+        fieldset fieldset {
+            margin-top: 15px;
+
+            margin-bottom: 0;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow: none;
+        }
+
+
+        fieldset fieldset::before {
+            background: #ffcb05;
+        }
+
+
+        /* ==========================
+           DETAILS
+        ========================== */
+
+        details {
+            background: #fffbea;
+
+            border: 2px solid #fde68a;
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        summary {
+            cursor: pointer;
+
+            font-weight: bold;
+
+            color: #854d0e;
+        }
+
+
+        details p {
+            margin-top: 10px;
+
+            color: #713f12;
+
+            line-height: 1.5;
+
+            font-size: 14px;
+        }
+
+
+        /* ==========================
+           CARTÃO FINAL
+        ========================== */
+
+        .mensagem {
+            display: grid;
+
+            grid-template-columns: 80px 1fr;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 20px;
+
+            margin-bottom: 20px;
+
+            border-radius: 15px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1e3a8a,
+                    #2563eb
+                );
+        }
+
+
+        .mini-pokeball {
+            width: 60px;
+            height: 60px;
+
+            border-radius: 50%;
+
+            border: 4px solid white;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    #e3350d 0%,
+                    #e3350d 45%,
+                    #263238 45%,
+                    #263238 55%,
+                    white 55%,
+                    white 100%
+                );
+
+            position: relative;
+        }
+
+
+        .mini-pokeball::after {
+            content: "";
+
+            position: absolute;
+
+            width: 20px;
+            height: 20px;
+
+            border-radius: 50%;
+
+            border: 4px solid #263238;
+
+            background: white;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+        }
+
+
+        .mensagem h2 {
+            margin-bottom: 5px;
+
+            font-size: 20px;
+        }
+
+
+        .mensagem p {
+            color: #dbeafe;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ==========================
+           BOTÕES
+        ========================== */
+
+        .botoes {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        button {
+            border: none;
+
+            padding: 14px 30px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .enviar {
+            background:
+                linear-gradient(
+                    135deg,
+                    #e3350d,
+                    #c62828
+                );
+
+            color: white;
+        }
+
+
+        .enviar:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 15px rgba(227,53,13,.3);
+        }
+
+
+        .limpar {
+            background: #e2e8f0;
+
+            color: #334155;
+        }
+
+
+        .limpar:hover {
+            background: #cbd5e1;
+        }
+
+
+        /* ==========================
+           RODAPÉ
+        ========================== */
+
+        footer {
+            text-align: center;
+
+            padding: 20px;
+
+            color: #cbd5e1;
+
+            font-size: 12px;
+        }
+
+
+        /* ==========================
+           RESPONSIVIDADE
+        ========================== */
+
+        @media (max-width: 750px) {
+
+            body {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .pokemon-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .mensagem {
+                grid-template-columns: 1fr;
+
+                text-align: center;
+            }
+
+            .mini-pokeball {
+                margin: auto;
+            }
+
+            .botoes button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- CABEÇALHO -->
+
+    <header>
+
+        <div class="logo"></div>
+
+        <h1>
+            Pokémon <span>Trainer</span>
+        </h1>
+
+        <p>
+            Crie seu perfil de treinador e monte sua própria equipe Pokémon.
+        </p>
+
+
+        <div class="tags">
+
+            <div class="tag">
+                Cadastro
+            </div>
+
+            <div class="tag red">
+                Pokémon
+            </div>
+
+            <div class="tag yellow">
+                Treinador
+            </div>
+
+            <div class="tag">
+                Jornada
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- FORMULÁRIO -->
+
+    <form
+        action="https://webhook.site/36c73e04-1737-4746-86ef-fec5f77d703a"
+        method="post"
+        enctype="multipart/form-data"
+    >
+
+
+        <!-- =====================
+             DADOS
+        ====================== -->
+
+        <fieldset>
+
+            <legend>
+                Dados do treinador
+            </legend>
+
+
+            <div class="grid">
+
+
+                <div class="campo">
+
+                    <label for="nome">
+                        Nome completo
+                        <span class="obrigatorio">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Digite seu nome"
+                        maxlength="60"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="email">
+                        E-mail
+                        <span class="obrigatorio">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="exemplo@email.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="telefone">
+                        Telefone
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="telefone"
+                        name="telefone"
+                        placeholder="(00) 00000-0000"
+                        maxlength="15"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="site">
+                        Site ou perfil
+                    </label>
+
+                    <input
+                        type="url"
+                        id="site"
+                        name="site"
+                        placeholder="https://exemplo.com"
+                    >
+
+                </div>
+
+
+                <div class="campo full">
+
+                    <label for="pokemon-favorito">
+                        Pokémon favorito
+                        <span class="obrigatorio">*</span>
+                    </label>
+
+                    <input
+                        type="search"
+                        id="pokemon-favorito"
+                        name="pokemon_favorito"
+                        list="pokemon-list"
+                        placeholder="Digite o nome do seu Pokémon favorito"
+                        required
+                    >
+
+
+                    <datalist id="pokemon-list">
+
+                        <option value="Pikachu">
+                        <option value="Charizard">
+                        <option value="Eevee">
+                        <option value="Lucario">
+                        <option value="Greninja">
+                        <option value="Gengar">
+                        <option value="Dragonite">
+                        <option value="Snorlax">
+
+                    </datalist>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+
+
+        <!-- =====================
+             PERFIL
+        ====================== -->
+
+        <fieldset>
+
+            <legend>
+                Perfil de treinador
+            </legend>
+
+
+            <div class="grid">
+
+
+                <div class="campo">
+
+                    <label for="regiao">
+                        Região favorita
+                        <span class="obrigatorio">*</span>
+                    </label>
+
+                    <select
+                        id="regiao"
+                        name="regiao"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+
+                        <optgroup label="Regiões clássicas">
+
+                            <option value="kanto">
+                                Kanto
+                            </option>
+
+                            <option value="johto">
+                                Johto
+                            </option>
+
+                            <option value="hoenn">
+                                Hoenn
+                            </option>
+
+                            <option value="sinnoh">
+                                Sinnoh
+                            </option>
+
+                        </optgroup>
+
+
+                        <optgroup label="Regiões modernas">
+
+                            <option value="unova">
+                                Unova
+                            </option>
+
+                            <option value="kalos">
+                                Kalos
+                            </option>
+
+                            <option value="alola">
+                                Alola
+                            </option>
+
+                            <option value="galar">
+                                Galar
+                            </option>
+
+                            <option value="paldea">
+                                Paldea
+                            </option>
+
+                        </optgroup>
+
+                    </select>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="nivel">
+                        Nível do treinador
+                    </label>
+
+                    <input
+                        type="number"
+                        id="nivel"
+                        name="nivel"
+                        min="1"
+                        max="100"
+                        value="1"
+                        required
+                    >
+
+                    <span class="ajuda">
+                        Escolha um nível entre 1 e 100.
+                    </span>
+
+                </div>
+
+
+
+                <!-- RADIO -->
+
+                <div class="campo full">
+
+                    <label>
+                        Estilo de treinador
+                        <span class="obrigatorio">*</span>
+                    </label>
+
+
+                    <div class="opcoes">
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="radio"
+                                name="estilo"
+                                value="batalhador"
+                                required
+                            >
+
+                            Batalhador
+
+                        </label>
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="radio"
+                                name="estilo"
+                                value="explorador"
+                            >
+
+                            Explorador
+
+                        </label>
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="radio"
+                                name="estilo"
+                                value="colecionador"
+                            >
+
+                            Colecionador
+
+                        </label>
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="radio"
+                                name="estilo"
+                                value="coordenador"
+                            >
+
+                            Coordenador
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CHECKBOX -->
+
+                <div class="campo full">
+
+                    <label>
+                        Tipos favoritos
+                    </label>
+
+
+                    <div class="opcoes">
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="checkbox"
+                                name="tipo"
+                                value="fogo"
+                            >
+
+                            Fogo
+
+                        </label>
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="checkbox"
+                                name="tipo"
+                                value="agua"
+                            >
+
+                            Água
+
+                        </label>
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="checkbox"
+                                name="tipo"
+                                value="planta"
+                            >
+
+                            Planta
+
+                        </label>
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="checkbox"
+                                name="tipo"
+                                value="eletrico"
+                            >
+
+                            Elétrico
+
+                        </label>
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="checkbox"
+                                name="tipo"
+                                value="psiquico"
+                            >
+
+                            Psíquico
+
+                        </label>
+
+
+                        <label class="opcao">
+
+                            <input
+                                type="checkbox"
+                                name="tipo"
+                                value="dragao"
+                            >
+
+                            Dragão
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+
+
+        <!-- =====================
+             POKÉMON PRINCIPAL
+        ====================== -->
+
+        <fieldset>
+
+            <legend>
+                Escolha seu Pokémon principal
+            </legend>
+
+
+            <div class="pokemon-grid">
+
+
+                <div class="pokemon">
+
+                    <img
+                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                        alt="Pikachu"
+                    >
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="pokemon_principal"
+                            value="pikachu"
+                            required
+                        >
+
+                        Pikachu
+
+                    </label>
+
+                </div>
+
+
+
+                <div class="pokemon">
+
+                    <img
+                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+                        alt="Charizard"
+                    >
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="pokemon_principal"
+                            value="charizard"
+                        >
+
+                        Charizard
+
+                    </label>
+
+                </div>
+
+
+
+                <div class="pokemon">
+
+                    <img
+                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png"
+                        alt="Eevee"
+                    >
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="pokemon_principal"
+                            value="eevee"
+                        >
+
+                        Eevee
+
+                    </label>
+
+                </div>
+
+
+
+                <div class="pokemon">
+
+                    <img
+                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png"
+                        alt="Lucario"
+                    >
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="pokemon_principal"
+                            value="lucario"
+                        >
+
+                        Lucario
+
+                    </label>
+
+                </div>
+
+
+
+                <div class="pokemon">
+
+                    <img
+                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/658.png"
+                        alt="Greninja"
+                    >
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="pokemon_principal"
+                            value="greninja"
+                        >
+
+                        Greninja
+
+                    </label>
+
+                </div>
+
+
+            </div>
+
+        </fieldset>
+
+
+
+        <!-- =====================
+             JORNADA
+        ====================== -->
+
+        <fieldset>
+
+            <legend>
+                Jornada Pokémon
+            </legend>
+
+
+            <div class="grid">
+
+
+                <div class="campo">
+
+                    <label for="data">
+                        Data de início
+                    </label>
+
+                    <input
+                        type="date"
+                        id="data"
+                        name="data_inicio"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="hora">
+                        Horário preferido
+                    </label>
+
+                    <input
+                        type="time"
+                        id="hora"
+                        name="horario"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo full">
+
+                    <label for="experiencia">
+                        Experiência como treinador
+                    </label>
+
+                    <input
+                        type="range"
+                        id="experiencia"
+                        name="experiencia"
+                        min="0"
+                        max="100"
+                        value="50"
+                    >
+
+                    <div class="range">
+
+                        <span>Iniciante</span>
+
+                        <span>Experiente</span>
+
+                        <span>Mestre</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="cor">
+                        Cor do cartão
+                    </label>
+
+                    <input
+                        type="color"
+                        id="cor"
+                        name="cor_cartao"
+                        value="#e3350d"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="foto">
+                        Foto do Pokémon
+                    </label>
+
+                    <input
+                        type="file"
+                        id="foto"
+                        name="foto_pokemon"
+                        accept="image/*"
+                    >
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+
+
+        <!-- =====================
+             EQUIPE
+        ====================== -->
+
+        <fieldset>
+
+            <legend>
+                Montando sua equipe
+            </legend>
+
+
+            <div class="grid">
+
+
+                <div class="campo">
+
+                    <label for="pokemon2">
+                        Segundo Pokémon
+                    </label>
+
+                    <select
+                        id="pokemon2"
+                        name="pokemon_secundario"
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="bulbasaur">
+                            Bulbasaur
+                        </option>
+
+                        <option value="squirtle">
+                            Squirtle
+                        </option>
+
+                        <option value="gengar">
+                            Gengar
+                        </option>
+
+                        <option value="snorlax">
+                            Snorlax
+                        </option>
+
+                        <option value="dragonite">
+                            Dragonite
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="insignias">
+                        Quantidade de insígnias
+                    </label>
+
+                    <input
+                        type="number"
+                        id="insignias"
+                        name="insignias"
+                        min="0"
+                        max="20"
+                        placeholder="Ex.: 8"
+                    >
+
+                </div>
+
+
+                <div class="campo full">
+
+                    <fieldset>
+
+                        <legend>
+                            Terceiro Pokémon
+                        </legend>
+
+
+                        <label for="pokemon3">
+                            Escolha outro integrante
+                        </label>
+
+
+                        <select
+                            id="pokemon3"
+                            name="pokemon_terceiro"
+                        >
+
+                            <option value="">
+                                Nenhum
+                            </option>
+
+                            <option value="metagross">
+                                Metagross
+                            </option>
+
+                            <option value="gardevoir">
+                                Gardevoir
+                            </option>
+
+                            <option value="tyranitar">
+                                Tyranitar
+                            </option>
+
+                            <option value="mewtwo">
+                                Mewtwo
+                            </option>
+
+                        </select>
+
+                    </fieldset>
+
+                </div>
+
+            </div>
+
+        </fieldset>
+
+
+
+        <!-- =====================
+             HISTÓRIA
+        ====================== -->
+
+        <fieldset>
+
+            <legend>
+                Sobre sua jornada
+            </legend>
+
+
+            <div class="grid">
+
+
+                <div class="campo full">
+
+                    <label for="historia">
+                        Conte sobre sua jornada
+                        <span class="obrigatorio">*</span>
+                    </label>
+
+
+                    <textarea
+                        id="historia"
+                        name="historia"
+                        maxlength="500"
+                        placeholder="Conte como seria sua aventura Pokémon..."
+                        required
+                    ></textarea>
+
+
+                    <span class="ajuda">
+                        Máximo de 500 caracteres.
+                    </span>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="objetivo">
+                        Seu maior objetivo
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="objetivo"
+                        name="objetivo"
+                        maxlength="120"
+                        placeholder="Ex.: Vencer a Liga Pokémon"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="cidade">
+                        Cidade onde começaria
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="cidade"
+                        name="cidade"
+                        maxlength="50"
+                        placeholder="Digite sua cidade"
+                    >
+
+                </div>
+
+            </div>
+
+        </fieldse>
+
+
+        <!-- =====================
+             MENSAGEM
+        ====================== -->
+
+        <div class="mensagem">
+
+            <div class="mini-pokeball"></div>
+
+
+            <div>
+
+                <h2>
+                    Seu cadastro está quase pronto
+                </h2>
+
+
+                <p>
+                    Confira suas informações antes de enviar
+                    o formulário.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BOTÕES -->
+
+        <div class="botoes">
+
+            <button
+                type="reset"
+                class="limpar"
+            >
+                Limpar formulário
+            </button>
+
+
+            <button
+                type="submit"
+                class="enviar"
+                value="Enviar cadastro"
+            >
+                Enviar cadastro
+            </button>
+
+        </div>
+
+
+    </form>
+
+
+
+    <footer>
+
+        Formulário de Treinador Pokémon
+
+    </footer>
+
+
+</div>
+
+
+</body>
+
+</html>
