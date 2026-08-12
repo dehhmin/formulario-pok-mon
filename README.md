@@ -8,7 +8,7 @@ Os caracteres especiais aparecem codificados, como o espaço sendo representado 
 <b>Reflexão</b><br>
 1. Que tema você escolheu e por quê?
 
-Escolhi o tema Pokémon porque é um tema conhecido e permite criar um formulário mais visual e divertido. Também pude usar imagens dos Pokémon, cores relacionadas ao tema e diferentes opções para montar o perfil de um treinador.
+Escolhi o tema Pokémon porque é um tema que eu gosto muito e que fez parte da minha infância. Pude usar imagens de pokémon, relembrar regiões do anime e fazer um formulário para cadastrar treinadores. 
 
 2. Por que você usou GET ou POST no seu formulário?
 
